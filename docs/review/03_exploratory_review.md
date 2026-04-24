@@ -5,6 +5,13 @@ This is an **exploratory review** focused on understanding, clarity, and improve
 
 ---
 
+## scope
+
+Only review files changed in:
+`git diff main...HEAD`
+
+---
+
 ## Step 1: Understand the PR
 
 Run:

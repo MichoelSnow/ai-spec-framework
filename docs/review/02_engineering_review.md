@@ -3,7 +3,13 @@ You are performing a **comprehensive engineering review** of a git branch before
 This is a **risk analysis**, not a framework compliance check.
 
 ---
+## scope
 
+Only review files changed in:
+`git diff main...HEAD`
+
+
+---
 ## Step 1: Context
 
 Run:

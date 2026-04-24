@@ -5,6 +5,14 @@ This is a **pass/fail gate**, not a general code review.
 
 ---
 
+## scope
+
+Only review files changed in:
+`git diff main...HEAD`
+
+
+---
+
 ## Step 1: Context
 
 Run:
