@@ -48,6 +48,14 @@ Goal: Prevent documentation bloat while keeping docs accurate and useful.
 
 ---
 
+## Project Rules
+
+- `project_rules.md` is optional and used for project-specific constraints
+- It must NOT duplicate core or mode rules
+- It should only define deviations or additional restrictions
+
+---
+
 ## Lifecycle
 
 - Regularly review docs for:
