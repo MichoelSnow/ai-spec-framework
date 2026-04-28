@@ -1,3 +1,5 @@
+# 01_framework_audit.md
+
 You are performing a **STRICT framework compliance audit** before a branch is merged into `main`.
 
 Your job is to enforce the project’s AI-spec framework.
@@ -10,90 +12,149 @@ This is a **pass/fail gate**, not a general code review.
 Only review files changed in:
 `git diff main...HEAD`
 
-
 ---
 
 ## Step 1: Context
 
 Run:
 
-* `git branch --show-current`
-* `git diff main...HEAD --name-only`
+- `git branch --show-current`
+- `git diff main...HEAD --name-only`
 
 Review ONLY changed files.
 
 ---
 
-## Step 2: Required Documents
+## Step 2: Determine Mode
 
-You MUST enforce compliance with:
+Identify which mode this project uses by inspecting:
 
-* `/docs/core/architecture.md`
-* `/docs/core/design_system.md`
-* `/docs/core/ui_scaffold.md`
-* `/docs/core/ui_patterns.md`
-* `/agents.md`
+- `/agents.md`
+- referenced documents
+
+### Modes
+
+- **Application Mode**
+  - References:
+    - design_system.md
+    - ui_scaffold.md
+    - ui_patterns.md
+
+- **Pipeline Mode**
+  - References:
+    - pipeline_rules.md
+
+If unclear:
+- infer from codebase structure
+- choose the stricter interpretation
 
 ---
 
-## Step 3: Critical Checks (FAIL if ANY are violated)
+## Step 3: Required Documents
 
-### A. UI Scaffold
+### Core (always enforce)
+- `/docs/core/principles.md`
+- `/docs/core/architecture.md`
+- `/docs/core/security_baseline.md`
+- `/docs/core/testing_rules.md`
+- `/docs/core/docs_policy.md`
 
-* Are `PageLayout`, `PageHeader`, `Section`, `FormContainer`, `Stack` used?
-* Is layout built using raw `<div>` instead of primitives?
-* Are forms full-width when they should be constrained?
+### Mode-Specific
+
+#### Application Mode
+- `/docs/modes/application/design_system.md`
+- `/docs/modes/application/ui_scaffold.md`
+- `/docs/modes/application/ui_patterns.md`
+
+#### Pipeline Mode
+- `/docs/modes/pipeline/pipeline_rules.md`
+
+### Agent Rules
+- `/agents.md`
 
 ---
 
-### B. UI Patterns
+## Step 4: Critical Checks (FAIL if ANY are violated)
+
+### A. Core Compliance (ALWAYS)
+
+- Is logic duplicated instead of extracted?
+- Are architecture rules violated?
+- Is code unnecessarily complex or over-abstracted?
+- Does code violate core principles (clarity, determinism, simplicity)?
+- Is execution flow difficult to understand?
+
+---
+
+### B. Mode-Specific Checks
+
+#### If Application Mode:
+
+##### B1. UI Scaffold
+
+- Are required primitives used?
+- Is layout built using raw `<div>` instead of primitives?
+- Are forms incorrectly full-width?
+
+##### B2. UI Patterns
 
 For each page:
 
-* Identify its pattern (List, Form, Detail, Canvas)
+- Identify its pattern (List, Form, Detail, Canvas)
 
 Check:
 
-* Does the structure match the pattern?
-* For Canvas/Workspace:
+- Does the structure match the pattern?
 
-  * Is the canvas dominant?
-  * Is inspector a side panel (NOT stacked below)?
-  * Are controls compact?
+For Canvas/Workspace:
 
----
+- Is the canvas dominant?
+- Is inspector a side panel (NOT stacked)?
+- Are controls compact?
 
-### C. Data Exposure
+##### B3. Data Exposure
 
 FAIL if ANY UI shows:
 
-* IDs (UUIDs, database keys)
-* raw timestamps
-* internal fields or metadata
-* debug output
+- IDs (UUIDs, database keys)
+- raw timestamps
+- internal fields or metadata
+- debug output
 
 ---
 
-### D. Architecture
+#### If Pipeline Mode:
 
-* Is logic duplicated instead of extracted?
-* Is business logic inside UI components?
-* Are layer boundaries violated?
+##### B4. Pipeline Rules
+
+- Is logic unnecessarily split across multiple files?
+- Is execution flow non-linear or hard to trace?
+- Are abstractions introduced without duplication?
+- Is logic hidden behind layers (services, handlers, executors)?
+- Is behavior non-deterministic without justification?
 
 ---
 
-## Step 4: Output
+### C. Project-Specific Rules
+
+If `/docs/project_rules.md` exists:
+
+- Are project-specific rules followed?
+
+FAIL if violated.
+
+---
+
+## Step 5: Output
 
 Return ONLY:
 
 ### Verdict:
-
-* PASS
-* FAIL
+- PASS
+- FAIL
 
 ### Critical Violations (if any):
-
-* concise bullet list
+- concise bullet list
 
 Do NOT include suggestions, style feedback, or minor issues.
 
