@@ -21,6 +21,11 @@ This must be completed before implementing features.
 - Define environment variables structure
 - Create `.env.example`
 - Ensure `.env` is in `.gitignore`
+- If Python is used in the repo, explicitly choose the target Python version before dependency setup (agent must always ask the user which version to use)
+- After Python version selection, use Poetry as the source of truth for dependency compatibility:
+  - Set interpreter: `poetry env use <python-version>`
+  - Add/update dependencies using latest candidates (for example `poetry add ...@latest`)
+  - Resolve/validate via Poetry lock/install; treat solver failures as compatibility constraints to address explicitly
 
 ---
 
@@ -51,6 +56,14 @@ This must be completed before implementing features.
 - Configure package manager
   - Use pnpm instead of npm or yarn
   - Use poetry for python
+- Resolve dependency versions from live official registries at implementation time (for example npm and PyPI); do NOT pin versions from memory
+- Prefer current stable releases unless a project constraint requires otherwise; document any intentional pin/downgrade reason
+- If JavaScript/TypeScript is used in the repo, explicitly choose the target Node version before dependency setup (agent must always ask the user which version to use)
+- After Node version selection, use pnpm as the source of truth for dependency compatibility:
+  - Set runtime baseline in repo (for example `.nvmrc` and `package.json` `engines.node`)
+  - Create lockfile before upgrades: `pnpm install`
+  - Update dependencies non-interactively: `pnpm up -Lr --save` (use `-w` when operating at workspace root)
+  - Resolve/validate via install and project gates; treat failures as compatibility constraints to address explicitly
 - Ensure consistent code style
 
 ---
@@ -82,5 +95,3 @@ This must be completed before implementing features.
 
 - Do not begin feature development until bootstrap is complete
 - Missing setup = incomplete project
-
-
