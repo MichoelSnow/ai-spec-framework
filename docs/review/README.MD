@@ -27,6 +27,9 @@ This directory defines the required pre-merge review process.
 ```text
 Run /docs/review/01_framework_audit.md exactly as written.
 Audit only changed files from git diff main...HEAD.
+Use both operating docs and reference docs:
+- /docs/reference/*
+- /docs/project/reference/* (when present)
 Also enforce /docs/project/project_rules.md when present.
 Return only:
 - Verdict: PASS or FAIL
@@ -40,6 +43,9 @@ Stop after this audit if verdict is FAIL.
 Run /docs/review/02_engineering_review.md exactly as written.
 Review only changed files from git diff main...HEAD.
 Use full repository context to assess impact of changed files.
+Use both operating docs and reference docs:
+- /docs/reference/*
+- /docs/project/reference/* (when present)
 Account for /docs/project/project_rules.md when present.
 Focus on bugs, security risks, missing tests, performance risks, and breaking changes.
 Return severity-grouped findings and final merge readiness verdict.
@@ -51,6 +57,9 @@ Return severity-grouped findings and final merge readiness verdict.
 Run /docs/review/03_exploratory_review.md exactly as written.
 Review only changed files from git diff main...HEAD.
 Use full repository context to assess architecture and maintainability impact.
+Use both operating docs and reference docs:
+- /docs/reference/*
+- /docs/project/reference/* (when present)
 Account for /docs/project/project_rules.md when present.
 Provide high-signal, non-blocking feedback:
 - high-level assessment

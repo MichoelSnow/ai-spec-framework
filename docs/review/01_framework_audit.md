@@ -48,6 +48,10 @@ Use only the matching mode documents for this repo.
 ### Agent Rules
 - `/agents.md`
 
+### Reference Documents (required context)
+- `/docs/reference/*`
+- `/docs/project/reference/*` (if present)
+
 ---
 
 ## Step 4: Critical Checks (FAIL if ANY are violated)
