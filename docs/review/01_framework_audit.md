@@ -25,46 +25,22 @@ Review ONLY changed files.
 
 ---
 
-## Step 2: Determine Mode
+## Step 2: Load Active Mode
 
-Identify which mode this project uses by inspecting:
-
-- `/agents.md`
-- referenced documents
-
-### Modes
-
-- **Application Mode**
-  - References:
-    - design_system.md
-    - ui_scaffold.md
-    - ui_patterns.md
-
-- **Pipeline Mode**
-  - References:
-    - pipeline_rules.md
-
-If unclear:
-- infer from codebase structure
-- choose the stricter interpretation
+Read `/agents.md` and enforce the mode referenced there.
+Use only the matching mode documents for this repo.
 
 ---
 
 ## Step 3: Required Documents
 
 ### Core (always enforce)
-- `/docs/core/principles.md`
-- `/docs/core/architecture.md`
-- `/docs/core/security_baseline.md`
-- `/docs/core/testing_rules.md`
-- `/docs/core/docs_policy.md`
+- `/docs/core/core_rules.md`
 
 ### Mode-Specific
 
 #### Application Mode
-- `/docs/modes/application/design_system.md`
-- `/docs/modes/application/ui_scaffold.md`
-- `/docs/modes/application/ui_patterns.md`
+- `/docs/modes/application/application_rules.md`
 
 #### Pipeline Mode
 - `/docs/modes/pipeline/pipeline_rules.md`
@@ -137,7 +113,7 @@ FAIL if ANY UI shows:
 
 ### C. Project-Specific Rules
 
-If `/docs/project_rules.md` exists:
+If `/docs/project/project_rules.md` exists:
 
 - Are project-specific rules followed?
 

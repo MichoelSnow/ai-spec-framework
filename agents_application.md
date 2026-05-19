@@ -1,208 +1,70 @@
 # agents_application.md
 
-## Purpose
-Defines the binding rules for AI agents working on application-style projects.
-
-This profile applies to:
-- UI-driven applications
-- full-stack products
-- long-lived systems
-
-These rules override default agent behavior.
-
----
-
 ## Mode
 
-This project uses **Application Mode**.
+- Active mode: Application.
+- Do not apply pipeline mode rules to application work.
 
-- UI, layout, and interaction rules are mandatory
-- Do NOT apply pipeline-style simplification rules
-- Do NOT ignore UI system constraints
+## Required Operating Docs
 
----
+Read and enforce before implementation:
 
-## Control Files
+- `/docs/core/core_rules.md`
+- `/docs/core/session_state.md`
+- `/docs/modes/application/application_rules.md`
 
-You MUST read and follow:
+## Interaction Rules
 
-### Core
-/docs/core/principles.md
-/docs/core/architecture.md
-/docs/core/security_baseline.md
-/docs/core/testing_rules.md
-/docs/core/docs_policy.md
-/docs/core/project_bootstrap.md
-/docs/core/session_state.md
+- If the user asks a question, respond with text.
+- If the user requests implementation, execute the change.
+- Do not mix explanation and implementation unless requested.
+- Keep responses concise unless more detail is requested.
 
-### Application Mode
-/docs/modes/application/design_system.md
-/docs/modes/application/ui_scaffold.md
-/docs/modes/application/ui_patterns.md
+## Agent Execution Priorities
 
----
+### P0 - Blocking Rules
 
-## Relationship to Framework
+- Run a brief rule check before commands/edits; if blocked by a rule, stop and ask.
+- State assumptions when they affect implementation.
+- If multiple valid interpretations exist, present options instead of choosing silently.
+- If scope or behavior is unclear, ask before implementing.
+- Do not add speculative features, abstractions, or configurability.
 
-This file defines the Application Mode profile.
+### P1 - Strong Defaults
 
-- Core principles ALWAYS apply
-- Application rules define structure and UI behavior
-- Do NOT mix rules from other modes
+- Bias toward caution over speed; use judgment for trivial tasks.
+- Prefer the minimum code that solves the requested problem.
+- Keep changes surgical and directly traceable to the request.
+- Do not refactor unrelated code.
+- Remove only artifacts made unused by your own changes.
+- For multi-step tasks, define explicit verification checks and run them.
 
-If rules conflict:
-- Application rules take precedence for UI and structure
-- Core principles govern decision-making
+### P2 - Hygiene Rules
 
----
+- Remove dead or experimental code introduced by your own changes.
+- Replace debug `print` usage with project-standard logging where applicable.
+- Verify affected schema dependencies before applying schema-related changes.
+- Use external tools only when required for the task.
+- Do not use emojis in code.
 
-## 1. Interaction Protocol (CRITICAL)
+## UI Gate
 
-### 1.1 Response vs Execution
+Before implementing UI changes:
 
-- If the user asks a question → respond with text only
-- If the user gives a command → perform code changes only
-- Ask clarifying questions before major changes
-- Do NOT mix explanation and implementation unless explicitly requested
+1. Select a page pattern from `application_rules.md`.
+2. Build using scaffold primitives defined in `application_rules.md`.
+3. Enforce data-display constraints from `application_rules.md`.
 
----
+## Project Rules
 
-### 1.2 Output Control
+- If `/docs/project/project_rules.md` exists, enforce it in addition to core and mode rules.
 
-- Keep responses concise by default
-- Do NOT generate long explanations unless requested
-- Do NOT generate large documents unless explicitly requested
+## Precedence
 
----
+1. `P0` rules in this file
+2. `/docs/project/project_rules.md`
+3. Application mode docs
+4. `/docs/core/core_rules.md`
+5. `P2` rules in this file
 
-## 2. Architecture Enforcement
-
-- Follow architecture.md strictly
-- Do NOT duplicate logic
-- Extract shared logic into appropriate shared modules
-- Respect layer boundaries
-
----
-
-## 3. Design Enforcement (CRITICAL)
-
-- Follow design_system.md strictly
-- Do NOT invent UI styles or patterns
-- Do NOT expose irrelevant data in UI
-- Prefer minimal, structured layouts
-
----
-
-## 4. UI Enforcement (CRITICAL)
-
-- All UI MUST use primitives defined in ui_scaffold.md:
-  - PageLayout
-  - PageHeader
-  - Section
-  - FormContainer
-  - Stack
-
-- All pages MUST follow a pattern from ui_patterns.md
-
-Before implementing UI:
-1. Identify the correct page pattern
-2. State the pattern
-3. Build strictly according to that pattern
-
----
-
-### Prohibited
-
-- Raw layout using arbitrary divs
-- Full-width layouts without justification
-- Mixing patterns
-- Displaying internal/system data (IDs, raw timestamps, debug info)
-
----
-
-## 5. Testing Enforcement
-
-- Follow testing_rules.md strictly
-- All new logic MUST include tests
-- Code without tests is incomplete
-
----
-
-## 6. Security Enforcement
-
-- Follow security_baseline.md strictly
-- Never expose secrets
-- Validate all inputs
-- Protect all API endpoints
-
----
-
-## 7. Documentation Enforcement
-
-- Follow docs_policy.md strictly
-- Do NOT create unnecessary documentation
-- Keep docs accurate and updated
-
----
-
-## 8. Project Setup Enforcement
-
-- Follow project_bootstrap.md
-- If required setup is missing → complete it before feature work
-
----
-
-## 9. Session Continuity
-
-- Read session_state.md at session start
-- Update session_state.md at session end
-
----
-
-## 10. General Rules
-
-- Prefer reuse over duplication
-- Prefer clarity over cleverness
-- Prefer explicitness over assumptions
-
----
-
-## Project-Specific Rules
-
-If `/docs/project_rules.md` exists:
-
-- You MUST read and apply it in addition to all other rules
-- These rules are project-specific extensions of the current mode
-
-### Precedence
-
-If conflicts arise:
-
-1. `/docs/project_rules.md` (highest priority)
-2. Mode-specific rules (application or pipeline)
-3. Core rules
-
-### Constraints
-
-- Project rules may restrict behavior further, but should not introduce unrelated systems
-- Do NOT ignore core principles (e.g., clarity, determinism, simplicity)
-
-If a conflict is unclear → choose the stricter interpretation
-
----
-
-## Additional Execution Rules
-
-- Do not use emojis in code
-- Replace print statements with logging
-- Remove dead or experimental code
-- Verify schema dependencies before changes
-- Only use external tools when explicitly requested
-
----
-
-## Enforcement
-
-- These rules are mandatory
-- If unsure → choose the stricter option
-- If rules are violated → implementation is incorrect
+If conflict is unclear, apply the stricter rule and ask if needed.

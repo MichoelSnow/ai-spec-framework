@@ -1,133 +1,63 @@
 # agents_pipeline.md
 
-## Purpose
-Defines the AI agent behavior for pipeline-style projects.
+## Mode
 
-This profile is used for:
-- evaluation pipelines
-- scripts
-- deterministic workflows
-- research / experimentation code
+- Active mode: Pipeline.
+- Do not apply application UI rules to pipeline work.
 
-This is NOT an application framework.
+## Required Operating Docs
 
----
+Read and enforce before implementation:
 
-## Scope
+- `/docs/core/core_rules.md`
+- `/docs/core/session_state.md`
+- `/docs/modes/pipeline/pipeline_rules.md`
 
-You MUST follow only the relevant documents:
+## Agent Execution Priorities
 
-### Core (always required)
-- /docs/core/architecture.md
-- /docs/core/security_baseline.md
-- /docs/core/testing_rules.md
-- /docs/core/principles.md
+### P0 - Blocking Rules
 
-### Pipeline Mode (required)
-- /docs/modes/pipeline/pipeline_rules.md
+- Run a brief rule check before commands/edits; if blocked by a rule, stop and ask.
+- State assumptions when they affect implementation.
+- If multiple valid interpretations exist, present options instead of choosing silently.
+- If scope or behavior is unclear, ask before implementing.
+- Do not add speculative features, abstractions, or configurability.
 
-### Explicitly NOT applicable
-- design_system.md
-- ui_scaffold.md
-- ui_patterns.md
+### P1 - Strong Defaults
 
-Do NOT reference or apply UI-related rules.
+- Bias toward caution over speed; use judgment for trivial tasks.
+- Prefer the minimum code that solves the requested problem.
+- Keep changes surgical and directly traceable to the request.
+- Do not refactor unrelated code.
+- Remove only artifacts made unused by your own changes.
+- For multi-step tasks, define explicit verification checks and run them.
 
----
+### P2 - Hygiene Rules
 
-## Core Behavior
+- Remove dead or experimental code introduced by your own changes.
+- Replace debug `print` usage with project-standard logging where applicable.
+- Verify affected schema dependencies before applying schema-related changes.
+- Use external tools only when required for the task.
+- Do not use emojis in code.
 
-- Prefer simple, linear execution over abstraction
-- Do NOT introduce layers unless necessary
-- Do NOT split logic across multiple files prematurely
-- Optimize for clarity and traceability
+## Pipeline Gate
 
----
+Before implementing pipeline changes:
 
-## Execution Model
+1. Keep execution flow explicit and sequential.
+2. Keep core logic readable in one pass.
+3. Avoid new abstraction layers unless stable duplication exists.
 
-- Code should be readable top-to-bottom in a single pass
-- Prefer a single script unless complexity requires separation
-- Avoid indirection (no unnecessary services, handlers, managers)
+## Project Rules
 
----
+- If `/docs/project/project_rules.md` exists, enforce it in addition to core and mode rules.
 
-## Abstraction Rules
+## Precedence
 
-- Do NOT abstract unless duplication exists
-- Do NOT generalize prematurely
-- Refactor only when patterns are proven stable
+1. `P0` rules in this file
+2. `/docs/project/project_rules.md`
+3. Pipeline mode docs
+4. `/docs/core/core_rules.md`
+5. `P2` rules in this file
 
----
-
-## Determinism Requirements
-
-- Inputs must be explicit
-- Outputs must be reproducible
-- Avoid hidden state
-- Avoid non-deterministic behavior unless explicitly required
-
----
-
-## Data Flow
-
-- Data flow must be obvious and traceable
-- Avoid implicit transformations
-- Prefer explicit variable naming and step-by-step logic
-
----
-
-## Dependency Rules
-
-- Minimize dependencies
-- Do NOT introduce libraries unless necessary
-- Prefer standard library where possible
-
----
-
-## Debugging & Transparency
-
-- Code must be understandable without jumping across files
-- Execution flow must be clear
-- Avoid “magic” behavior or hidden logic
-
----
-
-## Project-Specific Rules
-
-If `/docs/project_rules.md` exists:
-
-- You MUST read and apply it in addition to all other rules
-- These rules are project-specific extensions of the current mode
-
-### Precedence
-
-If conflicts arise:
-
-1. `/docs/project_rules.md` (highest priority)
-2. Mode-specific rules (application or pipeline)
-3. Core rules
-
-### Constraints
-
-- Project rules may restrict behavior further, but should not introduce unrelated systems
-- Do NOT ignore core principles (e.g., clarity, determinism, simplicity)
-
-If a conflict is unclear → choose the stricter interpretation
-
----
-
-## Enforcement
-
-If any implementation:
-- introduces unnecessary abstraction
-- obscures execution flow
-- violates determinism
-
-→ it is incorrect
-
----
-
-## Guiding Principle
-
-The framework should constrain complexity, not introduce it.
+If conflict is unclear, apply the stricter rule and ask if needed.

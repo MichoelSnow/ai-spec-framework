@@ -1,97 +1,24 @@
 # project_bootstrap.md
 
-## Purpose
-Defines the required initial setup for every new project.
+## Operating Rules
 
-This must be completed before implementing features.
+Complete this checklist before feature development:
 
----
-
-## Required Files
-
-- README.md
-- .gitignore
-- agents.md (in repo root)
-- docs/core/ (with all control files)
-
----
-
-## Environment Setup
-
-- Define environment variables structure
-- Create `.env.example`
-- Ensure `.env` is in `.gitignore`
-- If Python is used in the repo, explicitly choose the target Python version before dependency setup (agent must always ask the user which version to use)
-- After Python version selection, use Poetry as the source of truth for dependency compatibility:
-  - Set interpreter: `poetry env use <python-version>`
-  - Add/update dependencies using latest candidates (for example `poetry add ...@latest`)
-  - Resolve/validate via Poetry lock/install; treat solver failures as compatibility constraints to address explicitly
-
----
-
-## Git Setup
-
-- Initialize repository
-- Set default branch (main)
-- Make initial commit
-
----
-
-## CI / Quality Gates
-
-- Configure CI pipeline
-- Include:
-  - linting
-  - tests
-  - gitleaks
-- CI must run on every PR
-
----
-
-## Tooling
-
-- Configure formatter/linter 
-  - Use Ruff for Python
-  - Use ESLint for JavaScript/TypeScript
-- Configure package manager
-  - Use pnpm instead of npm or yarn
-  - Use poetry for python
-- Resolve dependency versions from live official registries at implementation time (for example npm and PyPI); do NOT pin versions from memory
-- Prefer current stable releases unless a project constraint requires otherwise; document any intentional pin/downgrade reason
-- If JavaScript/TypeScript is used in the repo, explicitly choose the target Node version before dependency setup (agent must always ask the user which version to use)
-- After Node version selection, use pnpm as the source of truth for dependency compatibility:
-  - Set runtime baseline in repo (for example `.nvmrc` and `package.json` `engines.node`)
-  - Create lockfile before upgrades: `pnpm install`
-  - Update dependencies non-interactively: `pnpm up -Lr --save` (use `-w` when operating at workspace root)
-  - Resolve/validate via install and project gates; treat failures as compatibility constraints to address explicitly
-- Ensure consistent code style
-
----
-
-## Testing Setup
-
-- Set up test framework
-  - Use pytest for Python
-- Ensure tests can run locally and in CI
-
----
-
-## Security Baseline
-
-- Verify `.env` is ignored
-- No secrets committed
-- HTTPS assumed for all external communication
-
----
-
-## Documentation
-
-- Keep docs minimal and structured
-- Do NOT create unnecessary files
-
----
-
-## Enforcement
-
-- Do not begin feature development until bootstrap is complete
-- Missing setup = incomplete project
+- Repository contains: `README.md`, `.gitignore`, `agents.md`, and required `docs/core/*` files.
+- Environment template exists as `.env.example`.
+- `.env` is ignored by git.
+- Default branch is `main`.
+- CI runs on pull requests.
+- CI includes linting and tests.
+- CI includes secret scanning (for example `gitleaks`).
+- Required linters/formatters are configured for languages used in the repo.
+- Use `ruff` for Python repos.
+- Use `eslint` for JavaScript/TypeScript repos.
+- Use `pnpm` for JavaScript/TypeScript dependency management.
+- Use `poetry` for Python dependency management.
+- Select target Node version before Node dependency setup.
+- Select target Python version before Python dependency setup.
+- Required test framework is configured and runnable locally.
+- Use `pytest` for Python repos.
+- Resolve dependency compatibility through the selected package manager and lockfile before feature work.
+- No feature work starts until all bootstrap checklist items pass.
