@@ -10,6 +10,11 @@
 - Follow the selected mode rules and do not mix mode contracts.
 - Reuse existing project patterns before introducing new ones.
 - Reject changes that increase complexity without reducing ambiguity.
+- Questions are non-mutating by default.
+- If the user asks why, what, whether, how, should, or otherwise requests explanation, review, diagnosis, or critique, respond with text only.
+- Do not edit files, run mutating commands, or apply fixes unless that same user message explicitly authorizes the change.
+- Identifying an obvious mistake does not create authorization to fix it.
+- Authorization from a previous implementation request does not carry forward to later question/review turns.
 
 ## Architecture
 

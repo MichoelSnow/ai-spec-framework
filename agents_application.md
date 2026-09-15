@@ -15,10 +15,25 @@ Read and enforce before implementation:
 
 ## Interaction Rules
 
-- If the user asks a question, respond with text.
+- Questions are non-mutating by default.
+- If the user asks why, what, whether, how, should, or otherwise requests explanation, review, diagnosis, or critique, respond with text only.
+- Do not edit files, run mutating commands, or apply fixes unless that same user message explicitly authorizes the change.
+- Identifying an obvious mistake does not create authorization to fix it.
+- Authorization from a previous implementation request does not carry forward to later question/review turns.
 - If the user requests implementation, execute the change.
 - Do not mix explanation and implementation unless requested.
 - Keep responses concise unless more detail is requested.
+
+## Mandatory Authorization Gate
+
+Before every tool call, classify the user's latest message.
+
+- Questions, explanations, reviews, diagnoses, status requests, comments, and objections are read-only.
+- For read-only requests, do not edit, create, delete, rename, format, or regenerate files, and do not call write or patch tools.
+- File modification is authorized only when the user explicitly requests an action such as edit, modify, change, fix, implement, apply, rewrite, or remove.
+- Statements such as “should this be changed?”, “why did you leave this?”, “this is wrong”, or “please check” do not authorize modifications.
+- A question about a previously completed task never implicitly authorizes a follow-up edit.
+- If authorization is ambiguous, ask: “Would you like me to edit the file, or only explain the issue?”
 
 ## Agent Execution Priorities
 
