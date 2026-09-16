@@ -1,14 +1,14 @@
-# application_ui_guidance.md
+# UI Patterns and Examples
 
 ## Design intent
 
-Application mode favors clear hierarchy, focused screens, and progressive disclosure. The goal is to keep interfaces understandable without exposing internal system shape.
+Clear hierarchy, focused screens, progressive disclosure, and user-facing data can help make interfaces understandable without exposing internal system shape.
 
 ## Progressive disclosure guidance
 
-- Start with primary actions and essential data.
-- Move advanced controls behind modals, tabs, drawers, or secondary sections.
-- Prefer multiple focused screens over a single dense surface.
+- Primary actions and essential data are often most useful at the start.
+- Advanced controls can be placed behind modals, tabs, drawers, or secondary sections.
+- Multiple focused screens may be preferable to a single dense surface.
 
 ## Pattern usage guidance
 
@@ -19,71 +19,71 @@ Application mode favors clear hierarchy, focused screens, and progressive disclo
 
 ## Consistency guidance
 
-- Reuse established primitives and component patterns.
-- Keep spacing and typography scales consistent.
-- Avoid style mixing across pages and features.
+- Reusing established primitives and component patterns can support consistency.
+- Consistent spacing and typography scales may improve coherence.
+- Avoiding style mixing across pages and features can reduce visual friction.
 
-## Pattern structures and checks
+## Pattern structures and considerations
 
 ### List Pattern
 
-Required structure:
+Possible structure:
 1. `PageLayout`
 2. `PageHeader`
 3. Primary `Section` with collection content
 4. Optional secondary `Section` for filters/summary
 
-Checks:
-- Use consistent item structure.
-- Limit visible fields.
-- Provide empty-state behavior.
+Considerations:
+- Consistent item structure can improve scanability.
+- A limited set of visible fields can keep the collection focused.
+- Empty-state behavior is useful when the collection has no items.
 
 ### Form Pattern
 
-Required structure:
+Possible structure:
 1. `PageLayout`
 2. `PageHeader`
 3. `Section` containing `FormContainer`
 
-Checks:
-- Show required fields first.
-- Keep advanced fields secondary/optional.
+Considerations:
+- Showing required fields first can support completion.
+- Advanced fields can remain secondary or optional.
 
 ### Detail Pattern
 
-Required structure:
+Possible structure:
 1. `PageLayout`
 2. `PageHeader`
 3. Summary `Section`
 4. Optional secondary `Section` blocks
 
-Checks:
-- Prioritize key information.
-- Group related details.
+Considerations:
+- Prioritizing key information can make details easier to use.
+- Grouping related details can clarify the summary.
 
 ### Canvas / Workspace Pattern
 
-Required structure:
+Possible structure:
 1. `PageLayout`
 2. `PageHeader`
 3. Controls `Section`
 4. Canvas/workspace `Section`
 
-Checks:
-- Canvas/workspace is dominant.
-- Controls are compact and secondary.
-- Do not mix large forms/lists into the canvas area.
-- Do not display raw timestamps, debug output, IDs, or other internal/system fields in canvas-adjacent UI.
+Considerations:
+- A dominant canvas or workspace can keep the main task prominent.
+- Compact, secondary controls can preserve workspace focus.
+- Keeping large forms and lists outside the canvas area may reduce distraction.
+- User-facing labels rather than raw timestamps, debug output, IDs, or other internal/system fields can make canvas-adjacent UI clearer.
 
 ### Empty State Pattern
 
-Required elements:
+Useful elements may include:
 - Clear no-data message
 - Short explanation
 - Primary next action
 
 ### Modal / Focused Interaction Pattern
 
-Checks:
+Considerations:
 - Scope is small and contained.
-- Use for focused secondary actions, not primary navigation.
+- Focused secondary actions may be suitable for this pattern, while primary navigation may be better served elsewhere.

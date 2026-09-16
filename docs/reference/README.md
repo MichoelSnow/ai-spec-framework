@@ -1,6 +1,5 @@
-# reference docs
+# Reference Material
 
-This directory contains optional, non-binding guidance.
+This directory contains optional, non-binding guidance: rationale, examples, patterns, and historical context.
 
-Use these docs for rationale, examples, and deeper implementation notes.
-Do not treat these files as operating constraints.
+Use these documents to inform decisions when useful. They do not define correctness or agent behavior unless an authoritative requirement explicitly adopts a specific part.

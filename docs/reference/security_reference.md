@@ -1,8 +1,8 @@
 # security_reference.md
 
-## Expanded security guidance
+## Optional security considerations
 
-This file provides additional context beyond the operating baseline.
+This file provides optional context for security-sensitive work. Applicable project requirements and task-specific security procedures remain authoritative.
 
 ## Vulnerability classes to watch
 
@@ -15,15 +15,15 @@ This file provides additional context beyond the operating baseline.
 
 ## Additional hardening ideas
 
-- Use strict CSP and browser security headers.
-- Use rate limiting for public endpoints.
-- Apply least-privilege network controls.
-- Use managed secret stores when available.
-- Add automated dependency and vulnerability scanning.
+- Strict CSP and browser security headers can strengthen browser-facing systems.
+- Rate limiting can help protect public endpoints.
+- Least-privilege network controls can reduce the impact of a compromised component.
+- Managed secret stores may be appropriate when available.
+- Automated dependency and vulnerability scanning can provide useful ongoing signals.
 
 ## Security testing depth
 
-Beyond required tests, consider:
+Depending on the project and applicable requirements, consider:
 - authn/authz abuse cases
 - malformed payload and boundary fuzzing
 - failure-mode behavior under degraded dependencies

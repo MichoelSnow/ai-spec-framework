@@ -1,8 +1,8 @@
 # architecture_examples.md
 
-## Layer mapping examples
+## Optional layer mapping examples
 
-Projects can map the required logical layers to different folders.
+Projects may map logical responsibilities to different folders when that helps clarity.
 
 Frontend example:
 - Interface: page and route entrypoints
@@ -16,8 +16,8 @@ Backend example:
 - Domain: core business logic
 - Shared: cross-cutting helpers
 
-## Mapping guidance
+## Mapping considerations
 
-- Keep mapping stable once established.
-- Update mapping before introducing new top-level structure.
-- Prefer folder names that make layer responsibility obvious.
+- A stable mapping can reduce ambiguity.
+- Folder names that make responsibility obvious can help future contributors.
+- Choose structure according to the actual project; these examples are not framework requirements.
