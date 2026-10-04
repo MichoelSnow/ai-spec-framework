@@ -33,3 +33,37 @@ Before implementation, briefly summarize:
 
 Do not modify files until the current request explicitly authorizes implementation.
 ```
+## New Project Start Prompt
+
+
+Read `AGENTS.md` and `docs/bootstrap.md`.
+
+I am starting a new project from scratch.
+
+The basic project idea is:
+
+[DESCRIBE THE PROJECT HERE]
+
+Use the bootstrap process to take this repository from a framework-only state to an initial usable project.
+
+Start by asking me the decision-relevant questions needed to establish the project context and initial repository shape. Ask only a few questions at a time, and do not ask about decisions that can reasonably wait until later development.
+
+Use my answers to determine:
+
+- the initial `docs/project_context.md`;
+- any scoped requirements that are already necessary to define correct initial behavior;
+- the initial repository structure;
+- language, runtime, and package-management choices;
+- testing and quality tooling;
+- Git and CI setup;
+- persistence or database setup when applicable;
+- environment/configuration structure;
+- deployment configuration only when already justified by the project.
+
+Do not create or modify files yet.
+
+Once the material bootstrap decisions are resolved, show me the proposed project context, initial requirements, repository tree, and important tooling choices for approval.
+
+Wait for my approval before creating the scaffold.
+
+Do not run commands or other executable workflows unless I separately authorize execution.

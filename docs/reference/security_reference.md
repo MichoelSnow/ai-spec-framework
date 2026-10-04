@@ -4,6 +4,22 @@
 
 This file provides optional context for security-sensitive work. Applicable project requirements and task-specific security procedures remain authoritative.
 
+## When to consult this reference
+
+Use this reference when work affects security-sensitive areas such as:
+
+- authentication or authorization;
+- public endpoints;
+- external or source ingestion;
+- rendering or user-controlled content;
+- serialization or deserialization;
+- redirects;
+- secrets or credentials;
+- dependencies;
+- other workflows where malformed or hostile input could cross a trust boundary.
+
+Applicable scoped security requirements remain authoritative.
+
 ## Vulnerability classes to watch
 
 - Injection risks (SQL, command, template)

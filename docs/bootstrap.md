@@ -2,9 +2,13 @@
 
 ## Purpose
 
-This document defines the initial repository bootstrap process after the framework files have already been copied into a new project.
+This document defines the greenfield bootstrap process after the framework files have been copied into an otherwise empty project repository.
 
-Bootstrap creates the non-framework foundation needed before normal feature development begins.
+Bootstrap takes the project from a framework-only state to an initial usable repository.
+
+The user begins by describing the project at a high level. The agent then uses an interactive clarification process to establish the minimum project context, requirements, repository structure, tooling, and operational setup needed to begin normal development.
+
+Project context is an output of bootstrap, not a prerequisite for it.
 
 It should establish the smallest practical repository scaffold for the actual project while applying the standard repository, Git, quality, security, and CI conventions used across projects.
 
@@ -14,35 +18,40 @@ Bootstrap is interactive. Do not silently make material project-shaping decision
 
 ## Inputs
 
-Before bootstrapping, use:
+At the start of a greenfield bootstrap, the required inputs are:
 
-- `AGENTS.md`
-- `docs/project_context.md`
-- any applicable initial documents under `docs/requirements/`
-- the user's description of the intended project
-- decisions already established in the current conversation
+- the repository's `AGENTS.md`;
+- this `docs/bootstrap.md`;
+- the user's initial plain-language description of the intended project;
+- decisions established during the bootstrap conversation.
 
-Do not ask the user to repeat information already available from these sources.
+Do not assume that `docs/project_context.md`, scoped requirements, source code, package configuration, or project structure already exist.
+
+Creating the initial project context and determining whether any initial scoped requirements are necessary are part of the bootstrap process.
+
+If relevant project information already exists because bootstrap is being resumed, use it rather than asking the user to repeat it.
 
 ---
 
-## Clarification Before Scaffolding
+## Establish Project Context Before Scaffolding
 
-Before creating non-framework project files, identify unresolved decisions that materially affect the initial repository.
+The user's initial project description is expected to be incomplete.
 
-Relevant questions may include:
+Use an interactive conversation to establish only the project context needed to make the initial scaffold decisions correctly.
 
+Before proposing project files, identify unresolved decisions that materially affect:
+
+- project purpose and initial scope;
 - primary language or languages;
-- target Python version;
-- target Node version;
+- target runtime versions;
 - application, library, service, data, or mixed-project shape;
 - frontend/backend boundaries;
 - persistence or database needs;
 - analysis or notebook needs;
-- deployment target;
+- deployment target, when already relevant;
 - environment/configuration requirements;
-- testing needs that differ from the standard defaults;
-- unusual CI/CD requirements;
+- testing and quality tooling;
+- Git/CI requirements;
 - monorepo versus single-package structure.
 
 Ask only decision-relevant questions.
@@ -53,6 +62,10 @@ If two or more reasonable choices would materially change the repository structu
 
 For low-impact, reversible decisions that fit established project defaults, choose the simplest reasonable option and state the assumption.
 
+Do not force decisions that can reasonably wait until later development.
+
+The purpose of bootstrap clarification is to establish enough context to create a sound initial repository, not to fully design the eventual product.
+
 ### Required runtime questions
 
 If Python will be used, explicitly ask the user which Python version to target unless it has already been established.
@@ -61,23 +74,68 @@ If JavaScript or TypeScript will be used, explicitly ask the user which Node ver
 
 ---
 
+## Create the Initial Project Context
+
+After the material bootstrap questions are resolved, draft the initial `docs/project_context.md`.
+
+It should capture:
+
+- what the project is;
+- its initial scope;
+- important accepted technical choices;
+- maintainer and operational assumptions;
+- relevant canonical defaults;
+- explicit project-specific overrides or additions.
+
+Do not create speculative future architecture or decisions merely to make the context look complete.
+
+The project context should describe the project as understood at bootstrap time and may evolve later as the project develops.
+
+---
+
+## Determine Initial Scoped Requirements
+
+Do not create requirement documents merely because the directory exists.
+
+Create an initial scoped requirement only when bootstrap has already established a rule that must be true for a defined subsystem or behavior.
+
+Examples may include:
+
+- a required external interface;
+- a binding data contract;
+- a known security boundary;
+- a persistence invariant;
+- a compatibility constraint;
+- a product behavior that must be preserved from the beginning.
+
+If no such binding subsystem rules exist yet, leave `docs/requirements/` without speculative requirement documents.
+
+Requirements should emerge when correctness rules are known, not as placeholder architecture.
+
+---
+
 ## Scaffold Checkpoint
 
-Before creating a substantial scaffold, briefly show the proposed repository structure and important tooling choices.
+Before creating non-framework project files, present the proposed bootstrap result for user approval.
 
-The proposal should identify:
+Show:
 
-- major directories;
-- package/runtime configuration;
-- testing setup;
-- CI/CD setup;
-- database or persistence structure if applicable;
-- deployment-related files if applicable;
-- any material assumptions.
+- the proposed `docs/project_context.md` content or a concise representation of it;
+- any proposed initial scoped requirements and why each is already necessary;
+- the proposed repository tree;
+- language/runtime/package-management choices;
+- testing and quality tooling;
+- Git and CI setup;
+- persistence/database structure when applicable;
+- environment/configuration structure;
+- deployment-related files when applicable;
+- material assumptions or intentionally deferred decisions.
 
 Resolve material disagreements before proceeding.
 
 Do not create speculative directories or infrastructure for hypothetical future needs.
+
+Do not create or modify the scaffold until the user approves this checkpoint.
 
 ---
 
@@ -95,7 +153,7 @@ README.md
   workflows/
 ```
 
-Retain the framework files already present.
+Retain the framework files already present, including the newly created project context and any approved initial scoped requirements.
 
 Do not recreate, relocate, or duplicate framework documentation during bootstrap.
 
@@ -393,7 +451,11 @@ Do not generate:
 
 Project-specific facts belong in `docs/project_context.md`.
 
+For a greenfield project, bootstrap creates the initial `docs/project_context.md` from the user's project description and clarification answers.
+
 Binding subsystem rules belong in `docs/requirements/`.
+
+Do not create placeholder requirements before a binding correctness rule actually exists.
 
 Optional rationale and examples belong in `docs/reference/`.
 
@@ -441,8 +503,10 @@ Do not claim bootstrap is fully validated when required executable validation ha
 
 ## Bootstrap Completion
 
-Bootstrap is complete when the repository has the appropriate:
+Bootstrap is complete when the user-approved project context and initial scaffold have been created and the repository has the appropriate:
 
+- `docs/project_context.md`;
+- any already-necessary scoped requirements;
 - baseline repository files;
 - README;
 - environment configuration;
@@ -456,6 +520,10 @@ Bootstrap is complete when the repository has the appropriate:
 - persistence configuration when applicable;
 - deployment configuration when applicable;
 - Git setup when authorized.
+
+Bootstrap does not require every future project decision to be resolved.
+
+It is complete when the repository has enough accurate context, structure, tooling, and operational setup to begin normal feature development without relying on speculative architecture.
 
 Before normal feature development, summarize:
 
