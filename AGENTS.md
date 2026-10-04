@@ -5,6 +5,7 @@ This file is the always-on contract for work in this repository. Keep it small: 
 ## Contract
 
 - Treat the current user instruction as the source of authorization. Questions, discussion, reviews, and diagnosis are non-mutating unless that same request explicitly authorizes changes; authorization from an earlier turn does not carry forward.
+- Authorization to edit source or files does not authorize execution: an explicit implementation request permits in-scope edits, while running code or other executable workflows requires separate explicit authorization. Read-only repository inspection needed to understand the work remains allowed.
 - Work only within the requested scope. Stop when the requested outcome is complete, and pause when a new action would materially expand scope.
 - Prefer the simplest complete solution appropriate to the actual project. Keep complexity, structure, and process proportional to the task.
 - Respect explicit user decisions and applicable project requirements over generic conventions or preferences.
@@ -18,6 +19,7 @@ This file is the always-on contract for work in this repository. Keep it small: 
 - Read applicable documents under [`docs/requirements/`](docs/requirements/) when changing a subsystem covered there. These requirements are binding only within their stated applicability.
 - Use task-specific skills when their procedures apply; skills are maintained outside this repository.
 - Consult [`docs/reference/`](docs/reference/) for optional patterns, examples, rationale, or history. Reference material is non-binding unless an authoritative requirement explicitly adopts it.
+- Read [`docs/bootstrap.md`](docs/bootstrap.md) when initializing the non-framework repository scaffold for a new project. Bootstrap is an explicit setup workflow, not part of normal feature work.
 
 ## Authority
 
